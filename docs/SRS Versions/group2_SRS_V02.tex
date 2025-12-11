@@ -1,0 +1,604 @@
+\documentclass[12pt]{article}
+
+% Page layout
+\usepackage{geometry}
+\geometry{
+  letterpaper,
+  margin=1in
+}
+
+% Fonts and formatting
+\usepackage{lmodern}
+\usepackage{setspace}
+\usepackage{xcolor}
+
+% For better title control
+\usepackage{titling}
+\usepackage{tabularx}
+
+
+\title{\vspace{2cm}
+  \textbf{\Huge AstroStreet AR}\\[1em]
+  \textbf{\Large Software Requirements Specification (SRS)}\\[0.5em]
+  \rule{0.8\textwidth}{0.5pt}\\[0.5em]
+  \large CS 3338 -- Software Engineering Tools
+}
+\author{
+  \large Group 2\\[0.5em]
+  Royce Jamerson\\
+  Khalid Jamil\\
+  Michael Lieng\\
+  Ricardo Ibanez
+}
+\date{\large December 8, 2025}
+
+\begin{document}
+
+% ---------- Cover Page ----------
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+
+    {\Huge \textbf{AstroStreet AR}\par}
+    \vspace{0.8cm}
+    {\Large \textbf{Software Requirements Specification (SRS)}\par}
+    \vspace{0.5cm}
+    {\large Assignment 14\par}
+    \vspace{0.5cm}
+    {\large CS 3338 -- Software Engineering Tools\par}
+    \vspace{0.5cm}
+    {\large California State University, Los Angeles\par}
+
+    \vfill
+
+    {\large \textbf{Group 2}\par}
+    \vspace{0.4cm}
+    {\large Royce Jamerson\par}
+    {\large Khalid Jamil\par}
+    {\large Michael Lieng\par}
+    {\large Ricardo Ibanez\par}
+
+    \vfill
+
+    {\large Date: December 8, 2025\par}
+
+    \vspace*{1.5cm}
+\end{titlepage}
+
+% ---------- Table of Contents ----------
+\pagenumbering{roman}        % Roman numerals for front matter
+\setcounter{tocdepth}{2}     % Include sections and subsections
+\tableofcontents
+\newpage
+
+\pagenumbering{arabic}       % Start normal page numbers for body
+
+% ---------- SRS Sections ----------
+
+% --- 1. Version Description
+\section{Version Description}
+
+This section tracks the revision history of the
+\textit{AstroStreet AR} Software Requirements Specification (SRS)
+for Group 2 in CS 3338 -- Software Engineering Tools.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|c|X|c|}
+\hline
+\textbf{Version} & \textbf{Description} & \textbf{Date} \\
+\hline
+1.0 &
+Initial version of the Software Requirements Specification for
+\textit{AstroStreet AR}, prepared for Assignment 14. &
+December 2, 2025 \\
+\hline
+2.0 &
+Expanded SRS with added assumptions and dependencies, user
+characteristics, refined hardware and software interface requirements,
+and additional legal/ethical and glossary entries for
+\textit{AstroStreet AR}. &
+December 8, 2025 \\
+\hline
+\end{tabularx}
+\end{center}
+
+Future revisions of this document can be recorded by adding new
+rows to the table with updated version numbers, dates, and brief
+descriptions of the changes.
+
+% --- 2. Introduction
+\section{Introduction}
+
+\subsection{Purpose}
+
+The purpose of this Software Requirements Specification (SRS) is to
+describe the functional and non-functional requirements of
+\textit{AstroStreet AR}, a mobile augmented reality shooter game
+developed by Group 2 for CS 3338 -- Software Engineering Tools at
+California State University, Los Angeles.
+This document defines what the system shall do from the user's and
+stakeholders' perspectives, and serves as a contract between the
+development team and the project stakeholders.
+
+\subsection{Scope}
+
+\textit{AstroStreet AR} is a smartphone game in which players go
+outside, point their phone at the sky or surrounding environment, and
+see virtual asteroids and alien ships overlaid on the live camera view.
+The player rotates their body and phone to aim and taps the screen to
+shoot incoming targets.
+The system tracks score, player health or shields, and increasing
+difficulty as enemies appear over time.
+
+The main goals of the system are to:
+\begin{itemize}
+    \item Provide an accessible AR game experience that can be played
+    outdoors using a standard smartphone.
+    \item Offer simple, intuitive controls suitable for quick play
+    sessions.
+    \item Track and persist player high scores and basic settings.
+\end{itemize}
+
+This SRS covers the requirements for the initial single-player version
+of \textit{AstroStreet AR}.
+Future enhancements, such as online multiplayer modes or cloud-based
+leaderboards, are considered out of scope for this document and may be
+addressed in later revisions.
+
+\subsection{Intended Audience}
+
+This document is intended for the following audiences:
+\begin{itemize}
+    \item \textbf{Developers}: to understand the required behavior of
+    the system and implement it accordingly.
+    \item \textbf{Testers}: to design test cases that verify whether
+    the implemented system satisfies the stated requirements.
+    \item \textbf{Course Instructor and Teaching Staff}: to evaluate the
+    completeness and correctness of the requirements as part of
+    Assignment 14.
+    \item \textbf{Future Maintainers}: to use as a reference when
+    modifying or extending the system.
+\end{itemize}
+
+\subsection{Document Overview}
+
+The remainder of this SRS is organized as follows:
+\begin{itemize}
+    \item \textbf{Version Description} summarizes the revision history
+    of this document.
+    \item \textbf{External Interface Requirements} describes how users
+    and external systems interact with \textit{AstroStreet AR}, including
+    user interface behavior and dependencies on hardware and software
+    platforms.
+    \item \textbf{Legal and Ethical Considerations} identifies safety,
+    privacy, and ethical concerns related to using an AR game in
+    outdoor environments and explains how the system addresses them.
+    \item \textbf{Glossary} defines key terms and acronyms used
+    throughout the SRS.
+\end{itemize}
+
+\subsection{Assumptions and Dependencies}
+
+The requirements in this SRS are written under the following assumptions
+and dependencies:
+
+\begin{itemize}
+    \item \textbf{A-1:} Players have access to a modern smartphone with a
+    functioning rear-facing camera, motion sensors, and sufficient battery
+    charge for short play sessions.
+    \item \textbf{A-2:} The device supports a compatible augmented reality
+    framework (such as ARCore or ARKit) through the chosen game engine.
+    \item \textbf{A-3:} Players are familiar with common mobile game
+    interactions, such as tapping buttons and navigating simple menus.
+    \item \textbf{A-4:} The game will be distributed through a standard
+    mobile app store (e.g., Google Play or Apple App Store), and thus must
+    comply with the store's basic technical and content guidelines.
+    \item \textbf{A-5:} The initial project scope targets single-player,
+    offline gameplay; online features such as cloud leaderboards are
+    considered future enhancements.
+\end{itemize}
+
+These assumptions help bound the problem space and clarify conditions
+under which the stated requirements are expected to hold.
+
+\subsection{User Characteristics}
+
+\textit{AstroStreet AR} is designed for a broad audience of casual
+players rather than expert gamers.
+
+\begin{itemize}
+    \item \textbf{UC-1:} Users may have varying levels of gaming
+    experience, so the game should be understandable without requiring
+    prior knowledge of first-person shooters or AR games.
+    \item \textbf{UC-2:} Users may play in short sessions (e.g., a few
+    minutes at a time), so the game should allow quick entry into
+    gameplay and not require a lengthy tutorial.
+    \item \textbf{UC-3:} Users may play in outdoor or semi-public spaces,
+    so on-screen text and UI elements should be readable in typical
+    lighting conditions and not rely on very small fonts.
+    \item \textbf{UC-4:} Some users may have limited physical mobility
+    or may prefer to rotate in place rather than walk around; the game
+    should remain playable without requiring extensive walking.
+\end{itemize}
+
+
+% --- 3. External Interface Requirements
+\section{External Interface Requirements}
+
+This section describes how users and external systems interact with
+\textit{AstroStreet AR}.
+It specifies requirements for the user interface, hardware, software,
+and communication interfaces.
+
+\subsection{User Interface}
+
+\subsubsection{Main Menu}
+
+\begin{itemize}
+    \item \textbf{UI-1:} The system shall display a main menu when the
+    application is launched.
+    \item \textbf{UI-2:} The main menu shall display the game title
+    \textit{AstroStreet AR} and the following buttons:
+    \begin{itemize}
+        \item \textbf{Start Game}
+        \item \textbf{High Scores}
+        \item \textbf{Settings}
+        \item \textbf{Exit} (if supported by the platform)
+    \end{itemize}
+    \item \textbf{UI-3:} When the user taps \textbf{Start Game}, the
+    system shall start a new AR gameplay session.
+    \item \textbf{UI-4:} When the user taps \textbf{High Scores}, the
+    system shall display the high scores screen.
+    \item \textbf{UI-5:} When the user taps \textbf{Settings}, the
+    system shall display the settings screen.
+\end{itemize}
+
+\subsubsection{AR Gameplay Screen}
+
+\begin{itemize}
+    \item \textbf{UI-6:} During gameplay, the system shall display the
+    live camera feed as the background of the screen.
+    \item \textbf{UI-7:} The system shall display a crosshair or reticle
+    centered on the screen to indicate the aiming direction.
+    \item \textbf{UI-8:} The system shall display the player's current
+    score in a corner of the screen (e.g., upper-left).
+    \item \textbf{UI-9:} The system shall display the player's current
+    health or shield as a bar or similar indicator (e.g., in the
+    upper-right).
+    \item \textbf{UI-10:} If a time limit is used, the system shall
+    display the remaining time during gameplay.
+    \item \textbf{UI-11:} The system shall provide a pause button that
+    the user can tap to open the pause menu.
+    \item \textbf{UI-12:} When the user taps the screen within the AR
+    gameplay view, the system shall treat this as a ``shoot'' action
+    and fire a projectile in the current aiming direction.
+\end{itemize}
+
+\subsubsection{Pause Menu}
+
+\begin{itemize}
+    \item \textbf{UI-13:} When the pause button is tapped, the system
+    shall pause gameplay and display a pause menu overlay.
+    \item \textbf{UI-14:} The pause menu shall provide options to:
+    \begin{itemize}
+        \item \textbf{Resume} gameplay.
+        \item Open \textbf{Settings} (limited to in-game options).
+        \item \textbf{Quit to Main Menu}.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Game Over Screen}
+
+\begin{itemize}
+    \item \textbf{UI-15:} When the game session ends (e.g., the player's
+    health reaches zero or a time limit expires), the system shall
+    display a game over screen.
+    \item \textbf{UI-16:} The game over screen shall display the
+    player's final score.
+    \item \textbf{UI-17:} If the final score is a new high score, the
+    system shall indicate this to the user (e.g., with a message such
+    as ``New High Score!'').
+    \item \textbf{UI-18:} The game over screen shall provide options to
+    \textbf{Play Again} and \textbf{Return to Main Menu}.
+\end{itemize}
+
+\subsubsection{High Scores Screen}
+
+\begin{itemize}
+    \item \textbf{UI-19:} The system shall provide a high scores screen
+    that displays a list of previously recorded scores.
+    \item \textbf{UI-20:} The high scores screen shall show, at a
+    minimum, the score value and the date each score was achieved.
+    \item \textbf{UI-21:} The high scores screen shall provide a way for
+    the user to return to the main menu.
+\end{itemize}
+
+\subsubsection{Settings Screen}
+
+\begin{itemize}
+    \item \textbf{UI-22:} The system shall provide a settings screen
+    accessible from both the main menu and the pause menu.
+    \item \textbf{UI-23:} The settings screen shall allow the user to
+    enable or disable sound effects.
+    \item \textbf{UI-24:} The settings screen shall allow the user to
+    adjust control sensitivity for aiming.
+    \item \textbf{UI-25:} The system shall persist settings changes so
+    that they are applied the next time the application is launched.
+\end{itemize}
+
+\subsection{Hardware Interfaces}
+
+\begin{itemize}
+    \item \textbf{HW-1:} The system shall run on a smartphone device
+    that includes a rear-facing camera.
+    \item \textbf{HW-2:} The system shall require device motion sensors
+    (such as a gyroscope and accelerometer) to track the orientation of
+    the phone for AR gameplay.
+    \item \textbf{HW-3:} The system shall require a touchscreen to
+    receive tap input for shooting and UI navigation.
+    \item \textbf{HW-4:} The system should be playable while the user is
+    holding the device in portrait or landscape orientation (the chosen
+    orientation may be fixed by design).
+    \item \textbf{HW-5:} The device should have sufficient processing
+    power and memory to run a basic AR application without severe
+    frame rate drops during simple scenes (for example, at least a
+    mid-range smartphone released within the last several years).
+    \item \textbf{HW-6:} The camera should be capable of capturing
+    color images at a resolution suitable for AR tracking under normal
+    lighting conditions.
+
+\end{itemize}
+
+\subsection{Software Interfaces}
+
+\begin{itemize}
+    \item \textbf{SW-1:} The system shall run on a supported mobile
+    operating system, such as Android or iOS, that can host the chosen
+    game engine (e.g., Unity).
+    \item \textbf{SW-2:} The system shall use an augmented reality
+    framework (for example, ARCore on Android or ARKit on iOS) to
+    obtain camera images and device pose information.
+    \item \textbf{SW-3:} The system shall use the mobile operating
+    system's storage APIs or the game engine's persistence features to
+    save and load high scores and settings.
+    \item \textbf{SW-4:} If a game engine such as Unity is used, the
+    system shall interact with engine components through their
+    documented APIs.
+    \item \textbf{SW-5:} The system shall request and obtain operating
+    system permissions required for AR functionality (such as camera
+    access and motion sensor access) before starting an AR gameplay
+    session.
+    \item \textbf{SW-6:} If the required AR framework or permissions
+    are not available or are denied by the user, the system shall
+    display an explanatory message and prevent AR gameplay from
+    starting.
+
+\end{itemize}
+
+\subsection{Communication Interfaces}
+
+For the initial version of \textit{AstroStreet AR}, no network-based
+communication is strictly required.
+
+\begin{itemize}
+    \item \textbf{COM-1:} The system shall be able to run entirely
+    offline, without requiring a network connection for core gameplay.
+    \item \textbf{COM-2:} If future versions introduce an online
+    leaderboard or cloud storage, the system shall communicate with the
+    remote service using secure HTTP-based APIs (e.g., HTTPS REST
+    endpoints). Such features are considered out of scope for the
+    current SRS but may be added in future revisions.
+\end{itemize}
+
+% --- 4. Legal and Ethical Considerations
+\section{Legal and Ethical Considerations}
+
+This section identifies legal, safety, and ethical issues related to
+the use of \textit{AstroStreet AR}, and states requirements to help
+mitigate these risks.
+
+\subsection{Physical Safety in Outdoor Environments}
+
+Because \textit{AstroStreet AR} encourages players to move around
+outdoors while looking at their phone screen, there is a risk that
+players may become distracted and fail to notice real-world hazards
+such as vehicles, obstacles, or uneven ground.
+
+\begin{itemize}
+    \item \textbf{SAFE-1:} The system shall display a safety warning
+    before the start of gameplay, reminding users to stay aware of their
+    surroundings and to avoid playing while crossing streets, driving,
+    or operating vehicles.
+    \item \textbf{SAFE-2:} The system shall allow the user to dismiss
+    the safety warning only by acknowledging it (for example, by tapping
+    an ``I Understand'' or similar button).
+    \item \textbf{SAFE-3:} The system shall pause gameplay when the
+    application loses focus or is minimized, so that the user is not
+    encouraged to continue playing while switching apps or locking the
+    device.
+\end{itemize}
+
+These measures are intended to reduce, but cannot eliminate, the risk of
+accidents while playing the game.
+
+\subsection{Privacy and Use of Device Sensors}
+
+\textit{AstroStreet AR} accesses the device camera and motion sensors
+to provide an AR experience.
+In some implementations, it may also store limited gameplay data such
+as high scores.
+
+\begin{itemize}
+    \item \textbf{PRIV-1:} The system shall request permission to use
+    the device camera in accordance with mobile platform guidelines.
+    Gameplay shall not begin until camera access is granted or the user
+    exits the game.
+    \item \textbf{PRIV-2:} The system shall use the camera feed only to
+    render the AR gameplay experience and shall not transmit camera
+    images or video frames to external servers in the initial version.
+    \item \textbf{PRIV-3:} The system shall not collect personally
+    identifiable information (such as full name, address, or precise
+    location), beyond optional player initials or a nickname for
+    high-score display.
+    \item \textbf{PRIV-4:} Any data stored for high scores or settings
+    shall be kept locally on the device in the initial version.
+\end{itemize}
+
+If future versions introduce online features (such as cloud-based
+leaderboards), additional privacy requirements and notices shall be
+defined in a later revision of this SRS.
+
+\subsection{Data Usage and Retention}
+
+The game stores a small amount of persistent data (high scores and
+settings) to improve the user experience.
+
+\begin{itemize}
+    \item \textbf{DATA-1:} The system shall store only the minimum data
+    necessary for its functionality, such as scores, dates, and simple
+    configuration settings.
+    \item \textbf{DATA-2:} The system shall not store sensitive data,
+    such as passwords, payment information, or contact lists, as part of
+    normal gameplay.
+    \item \textbf{DATA-3:} The system shall allow stored high scores and
+    settings to be deleted by uninstalling the application, which
+    removes local data from the device.
+\end{itemize}
+
+\subsection{Age-Appropriate Use}
+
+\textit{AstroStreet AR} is intended as a casual arcade-style game with
+non-realistic depictions of asteroids, alien ships, and explosions.
+
+\begin{itemize}
+    \item \textbf{AGE-1:} The system shall avoid realistic depictions of
+    physical harm to real people or animals.
+    \item \textbf{AGE-2:} The system shall be designed to be appropriate
+    for a general audience and shall not include explicit language or
+    graphic content.
+    \item \textbf{AGE-3:} If the game is distributed through a mobile
+    app store, the stated age rating shall be consistent with the
+    content (for example, ``Everyone'' or an equivalent rating), subject
+    to the store's guidelines.
+\end{itemize}
+
+\subsection{Ethical Use of Augmented Reality}
+
+AR applications can influence how users perceive their surroundings and
+interact with public spaces.
+
+\begin{itemize}
+    \item \textbf{ETH-1:} The system shall not encourage users to enter
+    restricted, private, or dangerous areas in order to play the game.
+    \item \textbf{ETH-2:} The system shall not place game objectives or
+    incentives specifically in locations that could increase the risk
+    of harm (such as the middle of streets or near moving vehicles).
+    \item \textbf{ETH-3:} The system shall present AR content in a way
+    that respects public spaces and does not promote harassment or
+    nuisance behavior toward other people.
+\end{itemize}
+
+By addressing these legal and ethical considerations, the project aims
+to provide an enjoyable AR experience while minimizing potential safety,
+privacy, and ethical concerns for players and bystanders.
+
+\subsection{Accessibility and Inclusivity}
+
+To make \textit{AstroStreet AR} accessible to a wider range of players,
+the system shall consider basic accessibility and inclusivity guidelines.
+
+\begin{itemize}
+    \item \textbf{ACC-1:} The system shall avoid relying solely on color
+    to convey critical gameplay information and shall ensure that key UI
+    elements (such as health and score) have sufficient contrast against
+    the camera background.
+    \item \textbf{ACC-2:} The system shall avoid rapidly flashing
+    visual effects that could pose a risk to users with photosensitive
+    conditions.
+    \item \textbf{ACC-3:} The system should provide an option to reduce
+    or disable non-essential visual effects (such as particle bursts)
+    in order to improve clarity on small screens.
+    \item \textbf{ACC-4:} Text used in safety warnings and instructions
+    shall be displayed in a readable font size appropriate for mobile
+    devices.
+\end{itemize}
+
+% --- 5. Glossary 
+\section{Glossary}
+
+This section defines key terms and acronyms used throughout the
+\textit{AstroStreet AR} Software Requirements Specification.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+\textbf{Term} & \textbf{Definition} \\
+\hline
+AR (Augmented Reality) &
+A technology that overlays virtual objects onto a live view of the
+real world, typically using the device camera and motion sensors. \\
+\hline
+UI (User Interface) &
+The visual elements and controls that the player interacts with,
+such as buttons, menus, and icons. \\
+\hline
+HUD (Heads-Up Display) &
+On-screen information shown during gameplay, including score, health
+or shield, timer, and other status indicators. \\
+\hline
+Game Session &
+A single continuous playthrough that begins when the player starts a
+game and ends when the player loses, quits, or returns to the main
+menu. \\
+\hline
+High Score &
+A recorded score from a completed game session that is stored and
+displayed on the High Scores screen. \\
+\hline
+Persistent Data &
+Information that is saved to device storage so it remains available
+after the application is closed, such as high scores and settings. \\
+\hline
+Camera Feed &
+The live video stream captured by the device's camera and used as
+the background for the AR gameplay view. \\
+\hline
+Sensitivity (Control Sensitivity) &
+A configurable setting that controls how quickly the aiming reticle
+responds to device movement. \\
+\hline
+Safety Warning &
+A message shown to the user reminding them to stay aware of their
+surroundings and avoid dangerous behavior while playing the game. \\
+\hline
+Mobile Platform &
+The underlying operating system and environment on which the game
+runs, such as Android or iOS. \\
+\hline
+Pose &
+The position and orientation of the device in 3D space, as reported
+by the AR framework (e.g., where the phone is and which direction it
+is facing). \\
+\hline
+Anchor &
+A fixed reference point in the real world that the AR framework uses
+to place and maintain virtual objects at stable positions. \\
+\hline
+Frame Rate &
+The number of times per second the game updates and redraws the screen,
+typically measured in frames per second (FPS). Higher frame rates
+generally result in smoother motion. \\
+\hline
+Field of View (FOV) &
+The extent of the observable world that is visible through the camera
+and displayed on the screen at any given moment. \\
+\hline
+Accessibility &
+Design practices that make the game usable by people with a wide range
+of abilities, including considerations for vision, motion, and other
+differences. \\
+\hline
+\end{tabularx}
+\end{center}
+
+\end{document}

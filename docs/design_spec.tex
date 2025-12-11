@@ -1,0 +1,93 @@
+\documentclass[12pt]{article}
+
+% Page layout
+\usepackage{geometry}
+\geometry{
+  letterpaper,
+  margin=1in
+}
+
+% Fonts and formatting
+\usepackage{lmodern}
+\usepackage{setspace}
+\usepackage{xcolor}
+
+% For better title control
+\usepackage{titling}
+\usepackage{tabularx}
+
+\begin{document}
+% ---------- Cover Page ----------
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+
+    {\Huge \textbf{AstroStreet AR}\par}
+    \vspace{0.8cm}
+    {\Large \textbf{Design Specifications}\par}
+    \vspace{0.5cm}
+    {\large CS 3338 -- Software Engineering Tools\par}
+    \vspace{0.5cm}
+    {\large California State University, Los Angeles\par}
+
+    \vfill
+
+    {\large \textbf{Group 2}\par}
+    \vspace{0.4cm}
+    {\large Royce Jamerson\par}
+    {\large Khalid Jamil\par}
+    {\large Michael Lieng\par}
+    {\large Ricardo Ibanez\par}
+
+    \vfill
+
+    {\large Date: December 11, 2025\par}
+
+    \vspace*{1.5cm}
+\end{titlepage}
+
+\section{Packages}
+    The following packages must be included in the Docker container for the project to run:
+    
+    \begin{itemize}
+        \item \textbf{Node.js 18-alpine:} Runtime environment for frontend and backend code.
+        \item \textbf{PostgreSQL 15:} Database used to store player data and stats.
+        \item \textbf{npm:} .js package manager, used to install the required dependencies.
+    \end{itemize}
+
+% Dependencies
+\section{Dependencies}
+    \begin{itemize}
+        % ---------- frontend ----------
+        \item \textbf{Frontend (React + Vite):}
+        \begin{itemize}
+            \item \texttt{react} — Core UI library.
+            \item \texttt{react-dom} — Renders React components.
+            \item \texttt{vite} — Development and build tool for the frontend.
+            \item \texttt{axios} — Used to send requests to the backend API.
+        \end{itemize}
+    
+        % ---------- backend ----------
+        \item \textbf{Backend (Node.js + Express):}
+        \begin{itemize}
+            \item \texttt{express} — Web framework for handling API routes.
+            \item \texttt{cors} — Allows communication between frontend and backend.
+            \item \texttt{dotenv} — Loads environment variables such as database URLs.
+            \item \texttt{pg} — PostgreSQL client library used to query the database.
+        \end{itemize}
+    
+        % ---------- db ----------
+        \item \textbf{Database (PostgreSQL):}
+        \begin{itemize}
+            \item \textbf{PostgreSQL 15} — Primary datastore for game data.
+        \end{itemize}
+    \end{itemize}
+
+
+% Libraries
+\section{Libraries}
+    \begin{itemize}
+        \item \textbf{pg} — Node.js PostgreSQL client.
+    \end{itemize}
+
+\end{document}

@@ -1,0 +1,290 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{tabularx}
+\usepackage{setspace}
+\usepackage{enumitem}
+
+\title{AstroStreet AR\\Snapshot Summary Document}
+\author{Group 2: Royce Jamerson, Khalid Jamil, Michael Lieng, Ricardo Ibanez}
+\date{December 2025}
+
+\begin{document}
+\maketitle
+
+\onehalfspacing
+
+\section{Introduction}
+
+This document summarizes the evolution of \textit{AstroStreet AR} across four
+project snapshots. Each snapshot corresponds to a different stage in the
+imagined 6--12 month development timeline and shows how the scope, design, and
+tooling matured over time.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+\textbf{Snapshot} & \textbf{Focus} \\
+\hline
+Start (Snapshot 1) & Define core concept, basic AR gameplay loop, and initial documentation. \\
+\hline
+Checkpoint 1 (Snapshot 2) & Add major features (high scores, settings), refine architecture and interfaces. \\
+\hline
+Checkpoint 2 (Snapshot 3) & Deepen design (player stats, difficulty, accessibility, performance considerations). \\
+\hline
+Final / Due Date (Snapshot 4) & Polish implementation, stabilize features, and document future work. \\
+\hline
+\end{tabularx}
+\end{center}
+
+%-----------------------------------------------------------
+\section{Snapshot 1: Project Start}
+
+\subsection{Snapshot Objective}
+
+The objective of Snapshot 1 was to establish the foundation of
+\textit{AstroStreet AR}:
+
+\begin{itemize}[leftmargin=*]
+    \item Define the core game concept: a mobile AR shooter where players aim
+    and shoot virtual asteroids and alien ships overlaid on the real world.
+    \item Implement a minimal vertical slice:
+    \begin{itemize}
+        \item Camera feed as background.
+        \item Basic AR tracking using the chosen framework (e.g., ARCore/ARKit
+        via Unity).
+        \item Simple enemy objects appearing in front of the player.
+        \item Basic projectile firing using tap input.
+    \end{itemize}
+    \item Create initial project documentation and tool setup.
+\end{itemize}
+
+\subsection{Features Implemented}
+
+At this stage, the following features were in place:
+
+\begin{itemize}[leftmargin=*]
+    \item Basic AR gameplay loop: camera feed, simple enemies, tap-to-shoot.
+    \item Initial HUD text displaying at least a score counter placeholder.
+    \item Single-player, local-only gameplay (no persistence yet).
+\end{itemize}
+
+\subsection{Documentation and Tooling}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{SDD v1.0}: Introduced the high-level architecture and main
+    components for \textit{AstroStreet AR}.
+    \item \textbf{SRS v1.0}: Captured the initial functional requirements and
+    external interface expectations.
+    \item \textbf{README / User Manual (initial)}:
+    \begin{itemize}
+        \item Brief project description.
+        \item Very basic instructions on running or building the project.
+    \end{itemize}
+    \item \textbf{Jira}: Project and board created with initial tasks for core
+    AR setup and minimal gameplay.
+\end{itemize}
+
+\subsection{Risks and Open Issues}
+
+\begin{itemize}[leftmargin=*]
+    \item AR tracking behavior and performance on different devices were not
+    fully understood.
+    \item No persistence of high scores or settings.
+    \item No TestRail test runs defined yet; testing was informal.
+\end{itemize}
+
+%-----------------------------------------------------------
+\section{Snapshot 2: First Checkpoint}
+
+\subsection{Snapshot Objective}
+
+The objective of Snapshot 2 was to add a new major feature set and refine the
+requirements and design:
+
+\begin{itemize}[leftmargin=*]
+    \item Introduce a basic high-score system and dedicated High Scores screen.
+    \item Add a Settings screen for simple configuration options (e.g., sound,
+    sensitivity).
+    \item Improve handling of AR session lifecycle and error conditions.
+    \item Begin formal testing using TestRail.
+\end{itemize}
+
+\subsection{Features Implemented}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{High scores}: Ability to save and display multiple high-score
+    entries locally.
+    \item \textbf{Settings}: Simple toggles or values for sound and sensitivity.
+    \item \textbf{AR lifecycle handling}:
+    \begin{itemize}
+        \item Basic detection of tracking loss.
+        \item User messages when AR is not ready or permissions are denied.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Documentation and Tooling Updates}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{SDD v2.0}:
+    \begin{itemize}
+        \item Added detailed component responsibilities.
+        \item Documented AR session lifecycle and error handling.
+        \item Described key runtime scenarios (e.g., starting a session,
+        firing and scoring).
+        \item Refined database design with entities such as
+        \texttt{HighScore}, \texttt{PlayerStats}, and \texttt{Settings}.
+    \end{itemize}
+    \item \textbf{SRS v2.0}:
+    \begin{itemize}
+        \item Added assumptions and dependencies.
+        \item Added user characteristics.
+        \item Expanded hardware and software interface requirements.
+        \item Extended legal and ethical considerations and glossary entries.
+    \end{itemize}
+    \item \textbf{README}:
+    \begin{itemize}
+        \item Updated to mention high scores and settings.
+        \item Included clearer instructions on basic gameplay.
+    \end{itemize}
+    \item \textbf{TestRail}:
+    \begin{itemize}
+        \item First Test Run created for core flows (start game, basic
+        shooting, basic AR initialization).
+        \item Snapshot 2 summary exported and stored in the repository.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Risks and Open Issues}
+
+\begin{itemize}[leftmargin=*]
+    \item High-score persistence needed more thorough testing across sessions.
+    \item The difficulty curve and enemy spawn patterns were still simple and
+    might not be engaging for longer-term play.
+\end{itemize}
+
+%-----------------------------------------------------------
+\section{Snapshot 3: Second Checkpoint}
+
+\subsection{Snapshot Objective}
+
+The objective of Snapshot 3 was to deepen the design and improve game feel,
+especially around difficulty and player feedback:
+
+\begin{itemize}[leftmargin=*]
+    \item Introduce aggregate player statistics to support future tuning.
+    \item Refine difficulty progression and spawn limits.
+    \item Incorporate accessibility and performance considerations into both
+    requirements and design.
+\end{itemize}
+
+\subsection{Features Implemented}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Player statistics}: Tracking of total games played, best
+    score, shots fired, hits, and total play time.
+    \item \textbf{Improved enemy and spawn behavior}: More structured spawn
+    limits and simple difficulty scaling.
+    \item \textbf{Basic performance tuning}: Caps on enemies and projectiles,
+    consideration for object reuse.
+\end{itemize}
+
+\subsection{Documentation and Tooling Updates}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{SDD v3.0 (design-focused changes introduced by this stage)}:
+    \begin{itemize}
+        \item Game state management model (MainMenu, InitializingAR, Playing,
+        Paused, GameOver).
+        \item Performance and resource considerations for mobile AR.
+        \item UI navigation flow between core screens.
+    \end{itemize}
+    \item \textbf{SRS v3.0 (requirements-focused changes introduced by this stage)}:
+    \begin{itemize}
+        \item Non-functional requirements for performance, usability,
+        reliability, and safety.
+        \item Future requirements and explicit out-of-scope features.
+    \end{itemize}
+    \item \textbf{README}:
+    \begin{itemize}
+        \item Updated to reflect more polished gameplay and design.
+        \item Documented the evolution of SDD/SRS versions.
+    \end{itemize}
+    \item \textbf{TestRail}:
+    \begin{itemize}
+        \item Second Test Run added for new behavior (player stats, improved
+        difficulty, updated UI flow).
+        \item Snapshot 3 summary exported and stored.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Risks and Open Issues}
+
+\begin{itemize}[leftmargin=*]
+    \item Some accessibility enhancements (e.g., fully configurable HUD sizes)
+    remained future work rather than implemented features.
+    \item Online or networked features were still intentionally out of scope.
+\end{itemize}
+
+%-----------------------------------------------------------
+\section{Snapshot 4: Final / Due Date}
+
+\subsection{Snapshot Objective}
+
+The objective of Snapshot 4 was to stabilize the project for final submission
+and clearly document remaining future work:
+
+\begin{itemize}[leftmargin=*]
+    \item Polish core gameplay loop, UI readability, and AR feedback.
+    \item Ensure that SDD and SRS were consistent with the implemented
+    features.
+    \item Finalize non-functional requirements, legal/ethical considerations,
+    and future enhancements.
+\end{itemize}
+
+\subsection{Features and Polish Completed}
+
+\begin{itemize}[leftmargin=*]
+    \item Small UI refinements (text clarity, button placement, HUD polish).
+    \item Better messaging when AR tracking is unstable or unavailable.
+    \item Cleanup and tuning of enemy caps, spawn timing, and basic difficulty.
+\end{itemize}
+
+\subsection{Documentation and Tooling Finalization}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{SDD v3.0}: Final design document, incorporating all previous
+    changes plus final clarifications on architecture, UI flow, database
+    design, and extensibility.
+    \item \textbf{SRS v3.0}: Final requirements document, including
+    non-functional requirements and an explicit list of future/out-of-scope
+    features (e.g., online leaderboards, new modes).
+    \item \textbf{README / User Manual}:
+    \begin{itemize}
+        \item Final description of features and how to run the project.
+        \item Links to Jira board and notes about TestRail runs and summaries.
+        \item Section describing documentation evolution across versions.
+    \end{itemize}
+    \item \textbf{TestRail}:
+    \begin{itemize}
+        \item Final Test Run created to cover the stable feature set near the
+        due date.
+        \item Snapshot 4 summary exported and stored in the repository.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Future Work}
+
+Although the current version completes the course objectives, the following
+areas are identified as promising future work:
+
+\begin{itemize}[leftmargin=*]
+    \item Online leaderboards and cloud-synced player profiles.
+    \item Additional game modes (timed, endless, cooperative).
+    \item More varied enemy types and behaviors.
+    \item Expanded accessibility options (configurable HUD, colorblind modes,
+    haptic feedback settings).
+    \item Potential support for additional AR platforms and devices.
+\end{itemize}
+
+\end{document}

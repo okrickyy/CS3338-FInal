@@ -11,4 +11,4 @@ The project showcases how Augmented Reality technology can be applied to create 
 ### iv. Accessing the Game
 _AstroStreet AR_ is currently available to select users who signed up for early beta testing access. Access will be available to a limited group of users who register during the specified testing period. Selected testers will receive an email with a TestFlight download link.
     
-    Once final testing is completed and remaining bugs are resolved, the complete game will launch on both the Apple App Store and the Google Play Store.
+- Once final testing is completed and remaining bugs are resolved, the complete game will launch on both the Apple App Store and the Google Play Store.

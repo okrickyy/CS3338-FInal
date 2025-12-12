@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Backend Overview}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Backend Overview}
+
+The backend is a standalone web service that provides all server-side
+functionality for the game developed in the Unity engine (version 6.3).
+Unity serves only as the client and communicates with the backend through
+RESTful HTTP APIs using JSON.
+
+The backend is responsible for:
+
+\begin{itemize}
+    \item User authentication and account management.
+    \item Player profile data (XP, level, statistics).
+    \item Submitting and storing game session results.
+    \item Generating and returning leaderboard data.
+    \item Managing optional features such as an item store or inventory.
+    \item Ensuring persistent data storage and secure server-side validation.
+\end{itemize}
+
+Unity does not perform any backend logic; it only sends requests and displays
+responses. All core logic and data handling occur within the backend service.
+
+\end{document}
